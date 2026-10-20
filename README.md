@@ -66,14 +66,13 @@ Stop the server with **Ctrl+C** in the VS Code terminal.
 
 `render.yaml` defines a public Python web service, a managed Postgres database, an automatically generated dashboard password, and `/health` as the health check. Render provides the `onrender.com` URL and TLS certificate after the service deploys.
 
-1. Push this project to a Git repository that your Render account can access. Keep the repository private if you do not want the source code public; the deployed website itself will still be public.
-2. In the Render Dashboard, choose **New → Blueprint**, connect that repository, and select its `render.yaml`. Review the two resources before confirming creation.
-3. After the first deploy succeeds, open the web service URL and test the home page, plan form, feedback update, `/health`, and `/docs`. The generated coach password is available in the service's environment settings under `ADMIN_PASSWORD`.
-4. To enable live Gemini generation, add `GOOGLE_API_KEY` in the Render service's Environment settings, save, and redeploy. Without it, the hosted site still works using the local fallback generator.
+The current public deployment is [https://fitbuddy-xrud.onrender.com](https://fitbuddy-xrud.onrender.com). The home page and `/health` endpoint have been verified over HTTPS. The `/docs` API explorer is available at [https://fitbuddy-xrud.onrender.com/docs](https://fitbuddy-xrud.onrender.com/docs).
+
+1. The `MonsBeing/fitbuddy` GitHub repository is connected to the `fitbuddy-production` Render Blueprint. For a fresh environment, choose **New → Blueprint** in Render and enter the repository URL.
+2. The blueprint created the `fitbuddy` web service and `fitbuddy-db` database. The service URL is [https://fitbuddy-xrud.onrender.com](https://fitbuddy-xrud.onrender.com); the generated coach password is available in the service's Environment settings under `ADMIN_PASSWORD`.
+3. To enable live Gemini generation, add `GOOGLE_API_KEY` in the Render service's Environment settings, save, and redeploy. Without it, the hosted site still works using the local fallback generator.
 
 **Render free-tier limitation:** the web service can sleep when idle, and a free Postgres database expires after 30 days. Upgrade the Render Postgres plan before that deadline if you need longer-lived user data. Paid database or web-service plans can incur charges; review the current Render pricing before upgrading. Render's free services are intended for previews and hobby use, not production data.
-
-The current workspace has no Git remote or Render account connection, so the blueprint is ready but a public URL cannot be created until a repository is linked from your Render account.
 
 ## Test the application manually
 
