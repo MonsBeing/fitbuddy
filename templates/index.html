@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build a personalized seven-day workout plan with FitBuddy.">
+  <title>FitBuddy | Your plan starts here</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/"><span class="brand-mark">F</span> fitbuddy</a><a class="quiet-link" href="/docs">API docs <span aria-hidden="true">↗</span></a></header>
+  <main class="hero-layout">
+    <section class="intro"><p class="eyebrow"><span class="pulse"></span> YOUR ROUTINE, REIMAGINED</p><h1>Training that<br>fits <em>your life.</em></h1><p class="intro-copy">Tell us where you are and what you’re working toward. Get a thoughtful seven-day plan you can actually follow.</p>
+      <div class="trust-row"><span class="trust-icon">✦</span><span>Built around your goals</span><span class="trust-dot">·</span><span>Easy to adapt</span></div>
+    </section>
+    <section class="form-card"><div class="card-heading"><div><p class="eyebrow">LET’S GET TO KNOW YOU</p><h2>Your starting point</h2></div><span class="step-label">01 <span>/ 01</span></span></div>
+      {% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+      <form action="/generate-workout" method="post" class="profile-form">
+        <div class="field-grid"><label class="field full">Your name<input name="username" placeholder="e.g. Alex Morgan" required minlength="2" maxlength="80" autocomplete="name" value="{{ form.username if form else '' }}"></label>
+          <label class="field full">A user ID to find your plan later<input name="user_id" placeholder="e.g. alex_fit_01" required minlength="3" maxlength="40" pattern="[A-Za-z0-9_-]+" autocomplete="off"><small>Letters, numbers, underscores and hyphens</small></label>
+          <label class="field">Age<input type="number" name="age" min="16" max="100" placeholder="28" required></label>
+          <label class="field">Weight <span class="unit">kg</span><input type="number" name="weight" min="26" max="350" step="0.1" placeholder="68" required></label>
+          <label class="field">Your main goal<select name="goal" required><option value="" disabled selected>Choose a goal</option><option value="weight_loss">Weight loss</option><option value="muscle_gain">Build muscle</option><option value="general_fitness">General fitness</option><option value="flexibility">Flexibility</option><option value="endurance">Endurance</option></select></label>
+          <label class="field">Training experience<select name="experience"><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label></div>
+        <fieldset class="intensity-field"><legend>Preferred intensity</legend><div class="choice-row"><label><input type="radio" name="intensity" value="low"><span class="choice-card"><b>Easy</b><small>Gentle start</small></span></label><label><input type="radio" name="intensity" value="medium" checked><span class="choice-card"><b>Balanced</b><small>Steady effort</small></span></label><label><input type="radio" name="intensity" value="high"><span class="choice-card"><b>Challenging</b><small>Push yourself</small></span></label></div></fieldset>
+        <button class="button primary submit-button" type="submit">Create my plan <span aria-hidden="true">→</span></button><p class="form-footnote">A comfortable pace beats a perfect plan. You can adjust your routine anytime.</p>
+      </form>
+    </section>
+  </main>
+  <footer class="site-footer"><span>FitBuddy <span class="footer-separator">/</span> Small steps. Stronger days.</span><span>Fitness guidance for general wellness</span></footer>
+</body></html>
